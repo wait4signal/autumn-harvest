@@ -3,6 +3,7 @@
 //|                                                         B Gabela |
 //|                                             https://www.mql5.com |
 //+------------------------------------------------------------------+
+#property version "1.00"
 #property strict
 #property script_show_inputs
 
@@ -12,7 +13,7 @@
 
 #include "TradeHelper.mqh"
 
-input double   FIXED_DEAL_AMOUNT = 10000.00; //FIXED_DEAL_AMOUNT: Fixed amount to use per trade
+input double   FIXED_DEAL_AMOUNT = 1000.00; //FIXED_DEAL_AMOUNT: Fixed amount to use per trade
 input bool     USE_SL_ON_SELL = true; //USE_SL_ON_SELL: Use stop loss on Short positions
 
 //--- Global Variables
