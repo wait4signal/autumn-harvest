@@ -226,9 +226,10 @@ int getRsiDecision() {
          bool bodyOk = cbBodySize >= cbTotalSize*0.20;
          bool sizeOk = cbTotalSize <= beforeCbTotalSize;
          double cbBodyTop = MathMax(iClose(NULL,0,PEAK_CONTROL_BAR),iOpen(NULL,0,PEAK_CONTROL_BAR));
-         bool locationOk = iHigh(NULL,0,SIGNAL_BAR) >= cbBodyTop && iOpen(NULL,0,SIGNAL_BAR) >= cbBodyTop - (cbBodySize*0.20);
+         bool locationOk = iHigh(NULL,0,SIGNAL_BAR) >= cbBodyTop && iOpen(NULL,0,SIGNAL_BAR) >= cbBodyTop - (cbBodySize*0.50);
+         bool distanceOk = (iClose(NULL,0,PEAK_CONTROL_BAR) - tradeMA[PEAK_CONTROL_BAR]) >= atr[PEAK_CONTROL_BAR]*PRICE_TO_TRADEMA_ATR_PERC;
       
-         if(priceOk && bodyOk && locationOk && sizeOk) {
+         if(priceOk && bodyOk && locationOk && sizeOk && distanceOk) {
             sl = iHigh(NULL,0,PEAK_CONTROL_BAR) + (getAdjustedPoint()*SL_BUFFER_POINT_PERC);
             if(ADD_ATR_TO_SL) {
                sl = sl + atr[SIGNAL_BAR];
@@ -260,9 +261,10 @@ int getRsiDecision() {
          bool bodyOk = cbBodySize >= cbTotalSize*0.20;
          bool sizeOk = cbTotalSize <= beforeCbTotalSize;
          double cbBodyBottom = MathMin(iClose(NULL,0,PEAK_CONTROL_BAR),iOpen(NULL,0,PEAK_CONTROL_BAR));
-         bool locationOk = iLow(NULL,0,SIGNAL_BAR) <= cbBodyBottom && iOpen(NULL,0,SIGNAL_BAR) <= cbBodyBottom + (cbBodySize*0.20);
+         bool locationOk = iLow(NULL,0,SIGNAL_BAR) <= cbBodyBottom && iOpen(NULL,0,SIGNAL_BAR) <= cbBodyBottom + (cbBodySize*0.50);
+         bool distanceOk = (tradeMA[PEAK_CONTROL_BAR] - iClose(NULL,0,PEAK_CONTROL_BAR)) >= atr[PEAK_CONTROL_BAR]*PRICE_TO_TRADEMA_ATR_PERC;
          
-         if(priceOk && bodyOk && locationOk && sizeOk) {
+         if(priceOk && bodyOk && locationOk && sizeOk && distanceOk) {
             sl = iLow(NULL,0,PEAK_CONTROL_BAR) - (getAdjustedPoint()*SL_BUFFER_POINT_PERC);
             if(ADD_ATR_TO_SL) {
                sl = sl - atr[SIGNAL_BAR];
@@ -291,7 +293,7 @@ int getRsiDecision() {
 }
 
 bool isPeakUpTrend() {
-   if((iLow(NULL,0,4) < iLow(NULL,0,3) && iLow(NULL,0,3) < iLow(NULL,0,2) && iLow(NULL,0,2) < iLow(NULL,0,1)) && (iHigh(NULL,0,4) < iHigh(NULL,0,3) && iHigh(NULL,0,3) < iHigh(NULL,0,2) && iHigh(NULL,0,2) < iHigh(NULL,0,1))) {
+   if((iLow(NULL,0,3) < iLow(NULL,0,2) && iLow(NULL,0,2) < iLow(NULL,0,1)) && (iHigh(NULL,0,3) < iHigh(NULL,0,2) && iHigh(NULL,0,2) < iHigh(NULL,0,1))) {
       return true;
    }
 
@@ -299,7 +301,7 @@ bool isPeakUpTrend() {
 }
 
 bool isPeakDownTrend() {
-   if((iHigh(NULL,0,4) > iHigh(NULL,0,3) && iHigh(NULL,0,3) > iHigh(NULL,0,2) && iHigh(NULL,0,2) > iHigh(NULL,0,1)) && (iLow(NULL,0,4) > iLow(NULL,0,3) && iLow(NULL,0,3) > iLow(NULL,0,2) && iLow(NULL,0,2) > iLow(NULL,0,1))) {
+   if((iHigh(NULL,0,3) > iHigh(NULL,0,2) && iHigh(NULL,0,2) > iHigh(NULL,0,1)) && (iLow(NULL,0,3) > iLow(NULL,0,2) && iLow(NULL,0,2) > iLow(NULL,0,1))) {
       return true;
    }
 
@@ -319,8 +321,9 @@ int getPeakReveralDecision() {
          double beforeCbTotalSize = MathAbs(iLow(NULL,0,PEAK_CONTROL_BAR+1) - iHigh(NULL,0,PEAK_CONTROL_BAR+1));
          bool sizeOk = cbTotalSize <= beforeCbTotalSize;
          double cbBodyTop = MathMax(iClose(NULL,0,PEAK_CONTROL_BAR),iOpen(NULL,0,PEAK_CONTROL_BAR));
-         bool locationOk = iHigh(NULL,0,SIGNAL_BAR) >= cbBodyTop && iOpen(NULL,0,SIGNAL_BAR) >= cbBodyTop - (cbBodySize*0.20);
-         if(isPriceOk && locationOk && sizeOk) {
+         bool locationOk = iHigh(NULL,0,SIGNAL_BAR) >= cbBodyTop && iOpen(NULL,0,SIGNAL_BAR) >= cbBodyTop - (cbBodySize*0.50);
+         bool distanceOk = (iClose(NULL,0,PEAK_CONTROL_BAR) - tradeMA[PEAK_CONTROL_BAR]) >= atr[PEAK_CONTROL_BAR]*PRICE_TO_TRADEMA_ATR_PERC;
+         if(isPriceOk && locationOk && sizeOk && distanceOk) {
             sl = iHigh(NULL,0,PEAK_CONTROL_BAR) + (getAdjustedPoint()*SL_BUFFER_POINT_PERC);
             if(ADD_ATR_TO_SL) {
                sl = sl + atr[SIGNAL_BAR];
@@ -351,8 +354,9 @@ int getPeakReveralDecision() {
          double beforeCbTotalSize = MathAbs(iLow(NULL,0,PEAK_CONTROL_BAR+1) - iHigh(NULL,0,PEAK_CONTROL_BAR+1));
          bool sizeOk = cbTotalSize <= beforeCbTotalSize;
          double cbBodyBottom = MathMin(iClose(NULL,0,PEAK_CONTROL_BAR),iOpen(NULL,0,PEAK_CONTROL_BAR));
-         bool locationOk = iLow(NULL,0,SIGNAL_BAR) <= cbBodyBottom && iOpen(NULL,0,SIGNAL_BAR) <= cbBodyBottom + (cbBodySize*0.20);
-         if(isPriceOk && locationOk && sizeOk) {
+         bool locationOk = iLow(NULL,0,SIGNAL_BAR) <= cbBodyBottom && iOpen(NULL,0,SIGNAL_BAR) <= cbBodyBottom + (cbBodySize*0.50);
+         bool distanceOk = (tradeMA[PEAK_CONTROL_BAR] - iClose(NULL,0,PEAK_CONTROL_BAR)) >= atr[PEAK_CONTROL_BAR]*PRICE_TO_TRADEMA_ATR_PERC;
+         if(isPriceOk && locationOk && sizeOk && distanceOk) {
             sl = iLow(NULL,0,PEAK_CONTROL_BAR) - (getAdjustedPoint()*SL_BUFFER_POINT_PERC);
             if(ADD_ATR_TO_SL) {
                sl = sl - atr[SIGNAL_BAR];

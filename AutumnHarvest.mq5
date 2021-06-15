@@ -46,6 +46,7 @@ input double   MA_AWAY_PERC = 0.0005; //MA_AWAY_PERC: Percentage by which price 
 input bool     USE_LONG_MA_IB = false; //USE_LONG_MA_IB: Use long MA (200MA) for trend IB guidance, this results in fewer but more accurate entries
 input bool     USE_LONG_MA_PEAK = false; //USE_LONG_MA_PEAK: Use long MA (200MA) for trend PEAK guidance, this results in fewer but more accurate entries
 input bool     USE_LONG_MA_RSI = false; //USE_LONG_MA_RSI: Use long MA (200MA) for trend RSI guidance, this results in fewer but more accurate entries
+input double   PRICE_TO_TRADEMA_ATR_PERC = 1.50; //PRICE_TO_TRADEMA_ATR: Minimum distance between price and TradeMA
 input group           "Risk Management"
 input int      TRADE_INTERVAL_BARS = 3; //TRADE_INTERVAL_BARS: Don't place trade if one exists within this interval (avoid duplicate)
 input int      MAX_LOSING_DEALS = 2; //MAX_LOSING_DEALS: Max number of open losing deals for current symbol
@@ -61,6 +62,7 @@ input double   TP_TRAIL_BUY_PERC = 0.025; //TP_TRAIL_BUY_PERC: Distance between 
 input double   TP_TRAIL_SELL_PERC = 0.020; //TP_TRAIL_SELL_PERC: Distance between TP and current price when SHORT
 input double   TP_PERC = 0.05; //TP_PERC: Acceptable profit on deal, can start trailing from there
 input bool     CLOSE_ON_REVERSAL = true; //CLOSE_ON_REVERSAL: Close position and take profit when price starts reversing
+input double   CLOSE_ON_REVERSAL_MIN_PROFIT_PERC = 0.01; //CLOSE_ON_REVERSAL_MIN_PROFIT_PERC: Minimum required profit before closing on reversal
 input bool     ADD_ATR_TO_SL = false;
 //input int      MAX_ATR_ON_SELL = 15; //MAX_ATR_ON_SELL: No selling if volatility is at or above this level to avoid unnecessary SL hits
 input bool     USE_SL_ON_BUY = true; //USE_SL_ON_BUY: Use stop loss on Long position
@@ -145,7 +147,7 @@ int OnInit() {
       return(INIT_FAILED);
    }
 
-   //--- RSI init
+   //--- ATR init
    atrHandle = iATR(_Symbol,_Period,10);
    if(atrHandle == INVALID_HANDLE) {
       printHelper(LOG_ERROR, "Error creating ATR indicator");
@@ -402,7 +404,7 @@ void maintainPositions() {
       
       double stepAmount = positionType == POSITION_TYPE_BUY ? margin * TP_TRAIL_BUY_PERC : margin * TP_TRAIL_SELL_PERC;
       
-      if(CLOSE_ON_REVERSAL && profit >= 0.00 && tp == 0.00 && sl != 0.00) {
+      if(CLOSE_ON_REVERSAL && profit >= (margin*CLOSE_ON_REVERSAL_MIN_PROFIT_PERC) && tp == 0.00) {
          //Only do this if timeframe is same otherwise we could mess up deals using incorrect price action data
          ulong magicWithTimeFrame = getMagicWithTimeframe();
          if(magic != magicWithTimeFrame) {
