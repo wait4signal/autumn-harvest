@@ -13,8 +13,8 @@
 
 #include "TradeHelper.mqh"
 
-input double   FIXED_DEAL_AMOUNT = 1000.00; //FIXED_DEAL_AMOUNT: Fixed amount to use per trade
-input bool     USE_SL_ON_BUY = true; //USE_SL_ON_BUY: Use stop loss on Long position
+input double   FIXED_DEAL_AMOUNT = 10000.00; //FIXED_DEAL_AMOUNT: Fixed amount to use per trade
+input bool     USE_SL_ON_BUY = false; //USE_SL_ON_BUY: Use stop loss on Long position
 
 //--- Global Variables
 /*
