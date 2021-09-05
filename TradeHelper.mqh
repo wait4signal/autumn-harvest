@@ -107,6 +107,25 @@ void placeBuyOrder(CTrade &m_trade, double sl, double tp, double fixedAmount, st
    string comment = commentPrefix + AccountInfoString(ACCOUNT_CURRENCY) + DoubleToString(margin, 2) + " on timeframe " + _Period;
    m_trade.Buy(volume,_Symbol,price,sl,tp,comment);
   }
+  
+//+------------------------------------------------------------------+
+//| Places a buy limit                                                                 |
+//+------------------------------------------------------------------+
+void placeBuyLimit(CTrade &m_trade, double price, double sl, double tp, double fixedAmount, string commentPrefix)
+  {
+   sl = NormalizeDouble(sl,SymbolInfoInteger(_Symbol,SYMBOL_DIGITS));
+   double volume = getNormalizedVolume(ORDER_TYPE_BUY_LIMIT, price, fixedAmount);
+
+//---BEGIN Calc margin
+   double margin = 0.00;
+   ENUM_ORDER_TYPE orderType = ORDER_TYPE_BUY_LIMIT;
+   OrderCalcMargin(orderType, _Symbol,volume,price,margin);
+//---END Calc margin
+
+   printHelper(LOG_INFO, StringFormat("About to place buy limit of volume %f and amount %f ", volume, margin));
+   string comment = commentPrefix + AccountInfoString(ACCOUNT_CURRENCY) + DoubleToString(margin, 2) + " L on timeframe " + _Period;
+   m_trade.BuyLimit(volume,price,_Symbol,sl,tp,0,0,comment);
+  }
 
 //+------------------------------------------------------------------+
 //| Places a sell order                                                                 |
@@ -127,6 +146,25 @@ void placeSellOrder(CTrade &m_trade, double sl, double tp, double fixedAmount, s
    printHelper(LOG_INFO, StringFormat("About to place sell order of volume %f and amount %f", volume, margin));
    string comment = commentPrefix + AccountInfoString(ACCOUNT_CURRENCY) + DoubleToString(margin, 2) + " on timeframe " + _Period;
    m_trade.Sell(volume,_Symbol,price,sl,tp,comment);
+  }
+  
+//+------------------------------------------------------------------+
+//| Places a sell limit                                                                 |
+//+------------------------------------------------------------------+
+void placeSellLimit(CTrade &m_trade, double price, double sl, double tp, double fixedAmount, string commentPrefix)
+  {
+   sl = NormalizeDouble(sl,SymbolInfoInteger(_Symbol,SYMBOL_DIGITS));
+   double volume = getNormalizedVolume(ORDER_TYPE_SELL_LIMIT, price, fixedAmount);
+
+//---BEGIN Calc margin
+   double margin = 0.00;
+   ENUM_ORDER_TYPE orderType = ORDER_TYPE_SELL_LIMIT;
+   OrderCalcMargin(orderType, _Symbol,volume,price,margin);
+//---END Calc margin
+
+   printHelper(LOG_INFO, StringFormat("About to place sell limit of volume %f and amount %f", volume, margin));
+   string comment = commentPrefix + AccountInfoString(ACCOUNT_CURRENCY) + DoubleToString(margin, 2) + " L on timeframe " + _Period;
+   m_trade.SellLimit(volume,price,_Symbol,sl,tp,0,0,comment);
   }
 
 //+------------------------------------------------------------------+
