@@ -114,11 +114,11 @@ void placeBuyOrder(CTrade &m_trade, double sl, double tp, double fixedAmount, st
 void placeBuyLimit(CTrade &m_trade, double price, double sl, double tp, double fixedAmount, string commentPrefix)
   {
    sl = NormalizeDouble(sl,SymbolInfoInteger(_Symbol,SYMBOL_DIGITS));
-   double volume = getNormalizedVolume(ORDER_TYPE_BUY_LIMIT, price, fixedAmount);
+   double volume = getNormalizedVolume(ORDER_TYPE_BUY, price, fixedAmount);
 
 //---BEGIN Calc margin
    double margin = 0.00;
-   ENUM_ORDER_TYPE orderType = ORDER_TYPE_BUY_LIMIT;
+   ENUM_ORDER_TYPE orderType = ORDER_TYPE_BUY;
    OrderCalcMargin(orderType, _Symbol,volume,price,margin);
 //---END Calc margin
 
@@ -154,11 +154,11 @@ void placeSellOrder(CTrade &m_trade, double sl, double tp, double fixedAmount, s
 void placeSellLimit(CTrade &m_trade, double price, double sl, double tp, double fixedAmount, string commentPrefix)
   {
    sl = NormalizeDouble(sl,SymbolInfoInteger(_Symbol,SYMBOL_DIGITS));
-   double volume = getNormalizedVolume(ORDER_TYPE_SELL_LIMIT, price, fixedAmount);
+   double volume = getNormalizedVolume(ORDER_TYPE_SELL, price, fixedAmount);
 
 //---BEGIN Calc margin
    double margin = 0.00;
-   ENUM_ORDER_TYPE orderType = ORDER_TYPE_SELL_LIMIT;
+   ENUM_ORDER_TYPE orderType = ORDER_TYPE_SELL;
    OrderCalcMargin(orderType, _Symbol,volume,price,margin);
 //---END Calc margin
 

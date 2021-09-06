@@ -60,9 +60,11 @@ void OnStart()
    }
    
    if(PRICE_BUFFER == ATR) {
-      price = price - atr[0];
+      double atrValue = atr[0];
+      price = price - atrValue;
    } else if(PRICE_BUFFER == HALF_ATR) {
-      price = price - (atr[0]/2);
+      double atrValue = (atr[0]/2);
+      price = price - atrValue;
    }
 
    placeBuyLimit(m_trade, price, 0.00, 0.00, FIXED_DEAL_AMOUNT, "[M] ");
