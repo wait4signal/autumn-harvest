@@ -26,7 +26,7 @@ enum ENUM_PRICE_BUFFER {
 
 input double   FIXED_DEAL_AMOUNT = 2000.00; //FIXED_DEAL_AMOUNT: Fixed amount to use per trade
 input ENUM_MA_PRICE     MA_PRICE = MA200; //MA_PRICE: MA to use for price
-input ENUM_PRICE_BUFFER     PRICE_BUFFER = ATR; //PRICE_BUFFER: Buffer to add to MA price
+input ENUM_PRICE_BUFFER     PRICE_BUFFER = HALF_ATR; //PRICE_BUFFER: Buffer to add to MA price
 
 //--- Global Variables
 /*

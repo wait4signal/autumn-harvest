@@ -14,7 +14,7 @@
 #include "TradeHelper.mqh"
 
 input double   FIXED_DEAL_AMOUNT = 5000.00; //FIXED_DEAL_AMOUNT: Fixed amount to use per trade
-input bool     USE_SL_ON_SELL = true; //USE_SL_ON_SELL: Use stop loss on Short positions
+input bool     USE_SL_ON_SELL = false; //USE_SL_ON_SELL: Use stop loss on Short positions
 
 //--- Global Variables
 /*
