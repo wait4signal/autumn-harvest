@@ -54,7 +54,7 @@ Note that your alert interval needs to be longer than the heartbeat interval e.g
 **Configure the email tab under options for this to work*
 
 ## **Terminal global variables**
-The following global variables can be set at terminal level to control certain program behaviours
+The following global variables can be set at terminal level to control certain program behaviour:
 
 | Variable                                | Description `[valid values in brackets]`                                                                                               |
 |-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
@@ -65,6 +65,6 @@ The following global variables can be set at terminal level to control certain p
 
 ## **Settings**
 See the following link for detailed explanation of the available settings:   
-(Autumn-Harvest-settings.md)
+(https://github.com/wait4signal/autumn-harvest/blob/main/Autumn-Harvest-settings.md)
 
 
