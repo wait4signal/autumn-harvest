@@ -33,7 +33,7 @@
 //--- Global Variables
 /*
 LOG_LEVEL                        //Sets log level: LOG_NONE  = 0; LOG_ERROR = 1; LOG_WARN  = 2; LOG_INFO  = 3; LOG_DEBUG = 4;
-TOTAL_ALLOWED_USED_MARGIN        //Total value allowed for used margin
+TOTAL_ALLOWED_USED_MARGIN        //Total amount allowed for used margin, EA won't open new trades beyond this total
 PAUSE_ORDER_OPENING     //Pause trading for all symbols, paused if value greater than 0...but still maintains open positions
 PAUSE_POSITION_MAINTENANCE    //Pause position maintenance for all symbols, paused if value greater than 0...position closing and SL adjustment will be done manually
 */
@@ -79,23 +79,23 @@ input double   TP_TRAIL_SELL_PERC = 0.020; //TP_TRAIL_SELL_PERC: Distance betwee
 input double   TP_PERC = 0.05; //TP_PERC: Acceptable profit on deal, can start trailing from there
 input bool     CLOSE_ON_REVERSAL = true; //CLOSE_ON_REVERSAL: Close position and take profit when price starts reversing
 input double   CLOSE_ON_REVERSAL_MIN_PROFIT_PERC = 0.01; //CLOSE_ON_REVERSAL_MIN_PROFIT_PERC: Minimum required profit before closing on reversal
-input bool     ADD_ATR_TO_SL = false;
+input bool     ADD_ATR_TO_SL = false; //ADD_ATR_TO_SL: Whether to add ATR to stoploss as a buffer
 //input int      MAX_ATR_ON_SELL = 15; //MAX_ATR_ON_SELL: No selling if volatility is at or above this level to avoid unnecessary SL hits
 input bool     USE_SL_ON_BUY = true; //USE_SL_ON_BUY: Use stop loss on Long position
 input bool     USE_SL_ON_SELL = true; //USE_SL_ON_SELL: Use stop loss on Short position
-input double   SL_BUFFER_POINT_PERC = 0.60;
+input double   SL_BUFFER_POINT_PERC = 0.60; //SL_BUFFER_POINT_PERC: Point percentage to add to stoploss as a buffer
 input group           "Trade Opportunity Alerts"
 /*Configure the email tab under options for this to work*/
-input bool     ALERT_IGNORED_BAR_BUY = false; 
-input bool     ALERT_IGNORED_BAR_SELL = false; 
-input bool     ALERT_RSI_REVERSAL_BUY = false;
-input bool     ALERT_RSI_REVERSAL_SELL = false;
-input bool     ALERT_PEAK_REVERSAL_BUY = false;
-input bool     ALERT_PEAK_REVERSAL_SELL = false;
+input bool     ALERT_IGNORED_BAR_BUY = false; //ALERT_IGNORED_BAR_BUY: Whether to send an email alert when this trade opportunity occurs
+input bool     ALERT_IGNORED_BAR_SELL = false; //ALERT_IGNORED_BAR_SELL: Whether to send an email alert when this trade opportunity occurs
+input bool     ALERT_RSI_REVERSAL_BUY = false; //ALERT_RSI_REVERSAL_BUY: Whether to send an email alert when this trade opportunity occurs
+input bool     ALERT_RSI_REVERSAL_SELL = false; //ALERT_RSI_REVERSAL_SELL: Whether to send an email alert when this trade opportunity occurs
+input bool     ALERT_PEAK_REVERSAL_BUY = false; //ALERT_PEAK_REVERSAL_BUY: Whether to send an email alert when this trade opportunity occurs
+input bool     ALERT_PEAK_REVERSAL_SELL = false; //ALERT_PEAK_REVERSAL_SELL: Whether to send an email alert when this trade opportunity occurs
 input int      ALERT_INTERVAL_BARS = 3; //ALERT_INTERVAL_BARS: Number of bars to skip before we can send another alert for this symbol and timeframe
 input group           "Monitoring"
-input string   HEARTBEAT_URL = "";
-input int      HEARTBEAT_INTERVAL_MINUTES = 5;
+input string   HEARTBEAT_URL = ""; //HEARTBEAT_URL: Url to send heartbeat to
+input int      HEARTBEAT_INTERVAL_MINUTES = 5; //HEARTBEAT_INTERVAL_MINUTES: How ofter to send the heartbeat
 
 //CAccountInfo m_account;
 //CTrade       m_trade; 
