@@ -95,7 +95,7 @@ input bool     ALERT_PEAK_REVERSAL_SELL = false; //ALERT_PEAK_REVERSAL_SELL: Whe
 input int      ALERT_INTERVAL_BARS = 3; //ALERT_INTERVAL_BARS: Number of bars to skip before we can send another alert for this symbol and timeframe
 input group           "Monitoring"
 input string   HEARTBEAT_URL = ""; //HEARTBEAT_URL: Url to send heartbeat to
-input int      HEARTBEAT_INTERVAL_MINUTES = 5; //HEARTBEAT_INTERVAL_MINUTES: How ofter to send the heartbeat
+input int      HEARTBEAT_INTERVAL_MINUTES = 5; //HEARTBEAT_INTERVAL_MINUTES: How often to send the heartbeat
 
 //CAccountInfo m_account;
 //CTrade       m_trade; 
