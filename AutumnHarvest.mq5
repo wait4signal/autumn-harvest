@@ -494,6 +494,21 @@ void trailProfits(long ticket, double openPrice, double currentPrice, double pro
          double newSL = NormalizeDouble(currentPrice - trailPips, SymbolInfoInteger(_Symbol,SYMBOL_DIGITS));
          if(sl == 0.00 || newSL > sl) {
             printHelper(LOG_DEBUG, StringFormat("Setting trailing stop at %f, trail pips is %f", newSL, trailPips));
+            
+            int stops_level = (int)SymbolInfoInteger(_Symbol,SYMBOL_TRADE_STOPS_LEVEL);
+            if(stops_level != 0)
+              {               
+                double bidPrice = SymbolInfoDouble(_Symbol,SYMBOL_BID);
+                
+                bool slOk = (newSL == 0) || (bidPrice-newSL > stops_level*_Point);
+                bool tpOk = (tp == 0) || (tp-bidPrice > stops_level*_Point);
+                if(!(slOk && tpOk)) 
+                  {
+                    printHelper(LOG_ERROR, StringFormat("SYMBOL_TRADE_STOPS_LEVEL=%d: StopLoss and TakeProfit must not be nearer than %d points from the open price when buying",stops_level,stops_level));
+                    return;
+                  }
+              }
+              
             m_trade.PositionModify(ticket,newSL,tp);
          }
       }
@@ -503,6 +518,21 @@ void trailProfits(long ticket, double openPrice, double currentPrice, double pro
          double newSL = NormalizeDouble(currentPrice + trailPips, SymbolInfoInteger(_Symbol,SYMBOL_DIGITS));
          if(sl == 0.00 || newSL < sl) {
             printHelper(LOG_DEBUG, StringFormat("Setting trailing tp at %f, trail pips is %f", newSL, trailPips));
+            
+            int stops_level = (int)SymbolInfoInteger(_Symbol,SYMBOL_TRADE_STOPS_LEVEL);
+            if(stops_level != 0)
+              { 
+                double askPrice = SymbolInfoDouble(_Symbol,SYMBOL_ASK);
+                  
+                bool slOk = (newSL == 0) || (newSL-askPrice > stops_level*_Point);
+                bool tpOk = (tp == 0) || (askPrice-tp > stops_level*_Point);
+                if(!(slOk && tpOk)) 
+                  {
+                    printHelper(LOG_ERROR, StringFormat("SYMBOL_TRADE_STOPS_LEVEL=%d: StopLoss and TakeProfit must not be nearer than %d points from the open price when selling",stops_level,stops_level));
+                    return;
+                  }
+              }
+              
             m_trade.PositionModify(ticket,newSL,tp);
          }
       }
@@ -518,6 +548,21 @@ void trailLosses(long ticket, double openPrice, double currentPrice, double prof
             double newSL = NormalizeDouble(sl + (currentPrice - previousPrice), SymbolInfoInteger(_Symbol,SYMBOL_DIGITS));
             if(newSL > sl) {
                printHelper(LOG_DEBUG, StringFormat("Still in negative, adjusting sl to %f", newSL));
+               
+               int stops_level = (int)SymbolInfoInteger(_Symbol,SYMBOL_TRADE_STOPS_LEVEL);
+               if(stops_level != 0)
+                 { 
+                   double bidPrice = SymbolInfoDouble(_Symbol,SYMBOL_BID);
+                                 
+                   bool slOk = (newSL == 0) || (bidPrice-newSL > stops_level*_Point);
+                   bool tpOk = (tp == 0) || (tp-bidPrice > stops_level*_Point);
+                   if(!(slOk && tpOk)) 
+                     {
+                       printHelper(LOG_ERROR, StringFormat("SYMBOL_TRADE_STOPS_LEVEL=%d: StopLoss and TakeProfit must not be nearer than %d points from the open price when buying",stops_level,stops_level));
+                       return;
+                     }
+                 }
+                 
                m_trade.PositionModify(ticket,newSL,tp);
             }
          }
@@ -529,6 +574,21 @@ void trailLosses(long ticket, double openPrice, double currentPrice, double prof
             double newSL = NormalizeDouble(sl - (previousPrice - currentPrice), SymbolInfoInteger(_Symbol,SYMBOL_DIGITS));
             if(newSL < sl) {
                printHelper(LOG_DEBUG, StringFormat("Still in negative, adjusting sl to %f", newSL));
+               
+               int stops_level = (int)SymbolInfoInteger(_Symbol,SYMBOL_TRADE_STOPS_LEVEL);
+               if(stops_level != 0)
+                 { 
+                   double askPrice = SymbolInfoDouble(_Symbol,SYMBOL_ASK);
+                     
+                   bool slOk = (newSL == 0) || (newSL-askPrice > stops_level*_Point);
+                   bool tpOk = (tp == 0) || (askPrice-tp > stops_level*_Point);
+                   if(!(slOk && tpOk)) 
+                     {
+                       printHelper(LOG_ERROR, StringFormat("SYMBOL_TRADE_STOPS_LEVEL=%d: StopLoss and TakeProfit must not be nearer than %d points from the open price when selling",stops_level,stops_level));
+                       return;
+                     }
+                 }
+              
                m_trade.PositionModify(ticket,newSL,tp);
             }
          }

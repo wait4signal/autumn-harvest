@@ -111,6 +111,21 @@ void placeBuyOrder(CTrade &m_trade, double sl, double tp, double fixedAmount, st
    double price = SymbolInfoDouble(_Symbol,SYMBOL_ASK);
 
    sl = NormalizeDouble(sl,SymbolInfoInteger(_Symbol,SYMBOL_DIGITS));
+   
+   int stops_level = (int)SymbolInfoInteger(_Symbol,SYMBOL_TRADE_STOPS_LEVEL);
+   if(stops_level != 0)
+     {
+       double bidPrice = SymbolInfoDouble(_Symbol,SYMBOL_BID);
+       
+       bool slOk = (sl == 0) || (bidPrice-sl > stops_level*_Point);
+       bool tpOk = (tp == 0) || (tp-bidPrice > stops_level*_Point);
+       if(!(slOk && tpOk)) 
+         {
+           printHelper(LOG_ERROR, StringFormat("SYMBOL_TRADE_STOPS_LEVEL=%d: StopLoss and TakeProfit must not be nearer than %d points from the bid price when buying",stops_level,stops_level));
+           return;
+         }
+     }
+   
    double volume = getNormalizedVolume(ORDER_TYPE_BUY, price, fixedAmount);
 
 //---BEGIN Calc margin
@@ -151,6 +166,21 @@ void placeSellOrder(CTrade &m_trade, double sl, double tp, double fixedAmount, s
    double price = SymbolInfoDouble(_Symbol,SYMBOL_BID);
 
    sl = NormalizeDouble(sl,SymbolInfoInteger(_Symbol,SYMBOL_DIGITS));
+   
+   int stops_level = (int)SymbolInfoInteger(_Symbol,SYMBOL_TRADE_STOPS_LEVEL);
+   if(stops_level != 0)
+     {
+       double askPrice = SymbolInfoDouble(_Symbol,SYMBOL_ASK);
+       
+       bool slOk = (sl == 0) || (sl-askPrice > stops_level*_Point);
+       bool tpOk = (tp == 0) || (askPrice-tp > stops_level*_Point);
+       if(!(slOk && tpOk)) 
+         {
+           printHelper(LOG_ERROR, StringFormat("SYMBOL_TRADE_STOPS_LEVEL=%d: StopLoss and TakeProfit must not be nearer than %d points from the ask price when selling",stops_level,stops_level));
+           return;
+         }
+     }
+   
    double volume = getNormalizedVolume(ORDER_TYPE_SELL, price, fixedAmount);
 
 //---BEGIN Calc margin
