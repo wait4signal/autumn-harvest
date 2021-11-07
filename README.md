@@ -54,6 +54,10 @@ The project also contains the following utility scripts which can be useful for 
 The EA can be set to send health checks to a monitoring server so that alerts can be sent out if no heartbeat pings are received within a set timeframe.   
 We recommend the https://healthchecks.io/ platform for this as it is open-source and supports a large number of alerting mechanisms such as email,telegram,phone call etc. Plus it offers up to 20 free monitoring licenses.   
 Note that your alert interval needs to be longer than the heartbeat interval e.g if heartbeat is set to 5 minutes then on the monitoring server you can set alerting to something like 7 minutes so that you get notified if the terminal has not sent a ping in 7 minutes.   
+**Configure the healthchecks server URL in expert advivsor tab under options for this to work*
+
+### **eMail Alerts** ###
+The EA can also send out email alerts when trade opportunities are detected as per the configured strategies.   
 **Configure the email tab under options for this to work*
 
 ## **Terminal global variables**
