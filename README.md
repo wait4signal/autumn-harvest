@@ -38,7 +38,10 @@ The source code for this EA is released under GPL v3 and is available at https:/
 The EA can be installed using the binaries from the MT5 marketplace at the following link:    
 (https://www.mql5.com/en/market/product/68609)   
 
-Altenatively you can compile the source code locally using the MT5 editor.
+Altenatively you can compile the source code locally using the MT5 editor.   
+You need to attach the EA to the corresponding chart for each instrument you want to trade/manage.   
+If the chart already has another EA then you can just open another chart for this one.   
+You can then configure accordingly.
 
 ## **Utility Scripts**
 The project also contains the following utility scripts which can be useful for opening trades:   
@@ -58,7 +61,7 @@ The following global variables can be set at terminal level to control certain p
 
 | Variable                                | Description `[valid values in brackets]`                                                                                               |
 |-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| LOG_LEVEL                               | Sets log level: `[0 \| 1 \| 2 \| 3 \| 4]` where LOG_NONE  = 0; LOG_ERROR = 1; LOG_WARN  = 2; LOG_INFO  = 3; LOG_DEBUG = 4                          |
+| LOG_LEVEL                               | Sets log level: `[0 \| 1 \| 2 \| 3 \| 4]` where LOG_NONE  = 0; LOG_ERROR = 1; LOG_WARN  = 2; LOG_INFO  = 3; LOG_DEBUG = 4              |
 | TOTAL_ALLOWED_USED_MARGIN               | Total amount allowed for used margin, EA won't open new trades beyond this total                                                       |
 | PAUSE_ORDER_OPENING                     | Pause trading for all symbols, paused if value greater than 0...but still maintains open positions                                     |
 | PAUSE_POSITION_MAINTENANCE              | Pause position maintenance for all symbols, paused if value greater than 0...position closing and SL adjustment will be done manually  |
