@@ -85,7 +85,6 @@ input bool     USE_SL_ON_BUY = true; //USE_SL_ON_BUY: Use stop loss on Long posi
 input bool     USE_SL_ON_SELL = true; //USE_SL_ON_SELL: Use stop loss on Short position
 input double   SL_BUFFER_POINT_PERC = 0.60; //SL_BUFFER_POINT_PERC: Point percentage to add to stoploss as a buffer
 input group           "Trade Opportunity Alerts"
-/*Configure the email tab under options for this to work*/
 input bool     ALERT_IGNORED_BAR_BUY = false; //ALERT_IGNORED_BAR_BUY: Whether to send an email alert when this trade opportunity occurs
 input bool     ALERT_IGNORED_BAR_SELL = false; //ALERT_IGNORED_BAR_SELL: Whether to send an email alert when this trade opportunity occurs
 input bool     ALERT_RSI_REVERSAL_BUY = false; //ALERT_RSI_REVERSAL_BUY: Whether to send an email alert when this trade opportunity occurs
@@ -93,6 +92,11 @@ input bool     ALERT_RSI_REVERSAL_SELL = false; //ALERT_RSI_REVERSAL_SELL: Wheth
 input bool     ALERT_PEAK_REVERSAL_BUY = false; //ALERT_PEAK_REVERSAL_BUY: Whether to send an email alert when this trade opportunity occurs
 input bool     ALERT_PEAK_REVERSAL_SELL = false; //ALERT_PEAK_REVERSAL_SELL: Whether to send an email alert when this trade opportunity occurs
 input int      ALERT_INTERVAL_BARS = 3; //ALERT_INTERVAL_BARS: Number of bars to skip before we can send another alert for this symbol and timeframe
+input bool     EMAIL_ALERT = false; //EMAIL_ALERT: Configure the email tab under options for email alerts to work
+input bool     TELEGRAM_ALERT = false; //TELEGRAM_ALERT: Set up a telegram bot and group for this to work
+input string   TELEGRAM_HOST = "https://api.telegram.org"; //TELEGRAM_HOST: Required if using telegram
+input string   TELEGRAM_BOT_TOKEN = ""; //TELEGRAM_BOT_TOKEN: Required if using telegram
+input string   TELEGRAM_CHAT_ID = ""; //TELEGRAM_CHAT_ID: Required if using telegram
 input group           "Monitoring"
 input string   HEARTBEAT_URL = ""; //HEARTBEAT_URL: Url to send heartbeat to
 input int      HEARTBEAT_INTERVAL_MINUTES = 5; //HEARTBEAT_INTERVAL_MINUTES: How often to send the heartbeat

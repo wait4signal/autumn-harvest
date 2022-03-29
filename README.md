@@ -63,12 +63,12 @@ The EA can also send out email alerts when trade opportunities are detected as p
 ## **Terminal global variables**
 The following global variables can be set at terminal level to control certain program behaviour:
 
-| Variable                                | Description `[valid values in brackets]`                                                                                               |
+| Variable   `[defaults in brackets]`     | Description `[valid values in brackets]`                                                                                               |
 |-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| LOG_LEVEL                               | Sets log level: `[0 \| 1 \| 2 \| 3 \| 4]` where LOG_NONE  = 0; LOG_ERROR = 1; LOG_WARN  = 2; LOG_INFO  = 3; LOG_DEBUG = 4              |
-| TOTAL_ALLOWED_USED_MARGIN               | Total amount allowed for used margin, EA won't open new trades beyond this total                                                       |
-| PAUSE_ORDER_OPENING                     | Pause trading for all symbols, paused if value greater than 0...but still maintains open positions                                     |
-| PAUSE_POSITION_MAINTENANCE              | Pause position maintenance for all symbols, paused if value greater than 0...position closing and SL adjustment will be done manually  |
+| LOG_LEVEL  `[0]`                        | Sets log level: `[0 \| 1 \| 2 \| 3 \| 4]` where LOG_NONE  = 0; LOG_ERROR = 1; LOG_WARN  = 2; LOG_INFO  = 3; LOG_DEBUG = 4              |
+| TOTAL_ALLOWED_USED_MARGIN  `[account balance]` | Total amount allowed for used margin, EA won't open new trades beyond this total                                                       |
+| PAUSE_ORDER_OPENING  `[0]`              | Pause trading for all symbols, paused if value greater than 0...but still maintains open positions                                     |
+| PAUSE_POSITION_MAINTENANCE   `[0]`           | Pause position maintenance for all symbols, paused if value greater than 0...position closing and SL adjustment will be done manually  |
 
 ## **Settings**
 See the following link for detailed explanation of the available settings:   

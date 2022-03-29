@@ -455,8 +455,38 @@ void sendAlert(int decision, string strategy) {
       decisionText = "SELL";
    }
    string subject = StringFormat("%s: %s on account %d", _Symbol, decisionText, AccountInfoInteger(ACCOUNT_LOGIN));
-   string body = StringFormat("%s: %s opportunity found on %s timeframe for account %d", _Symbol, decisionText, EnumToString(Period()), AccountInfoInteger(ACCOUNT_LOGIN));
-   SendMail(subject,body);
+   string body = StringFormat("%s: %s %s opportunity found on %s timeframe for account %d", _Symbol, strategy, decisionText, EnumToString(Period()), AccountInfoInteger(ACCOUNT_LOGIN));
+   
+   if(EMAIL_ALERT == true) {
+      SendMail(subject,body);
+   }
+   if(TELEGRAM_ALERT == true) {
+      sendTelegram(body);
+   }
+   
+}
+
+void sendTelegram(string message) {
+   string cookie=NULL,headers;
+   char   data[],result[];
+   
+   ResetLastError();
+   
+   string url = TELEGRAM_HOST+"/bot"+TELEGRAM_BOT_TOKEN+"/sendMessage?chat_id="+TELEGRAM_CHAT_ID+"&text="+message;
+   
+   int res=WebRequest("POST",url,cookie,NULL,500,data,0,result,headers);
+   if(res == -1) {
+      printHelper(LOG_WARN, StringFormat("Error in heartbeat WebRequest. Error code %s",GetLastError()));
+      //--- Perhaps the URL is not listed, display a message about the necessity to add the address
+      printHelper(LOG_WARN, StringFormat("Add the address %s to the list of allowed URLs on tab 'Expert Advisors'",TELEGRAM_HOST));
+   } else {
+      if(res == 200) {
+         //--- Successful transmission
+         printHelper(LOG_INFO, StringFormat("Telegram sent, Server Result: %s", CharArrayToString(result)));
+      } else{
+         printHelper(LOG_WARN, StringFormat("Telegram transmission '%s' failed, error code %d",url,res));
+      }
+   }
 }
 
 //+------------------------------------------------------------------+
