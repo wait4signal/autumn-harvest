@@ -58,6 +58,11 @@ Defaults are indicated in brackets. Where applicable, options are in brackets at
 | ALERT_PEAK_REVERSAL_BUY `[false]`   | Whether to send an email alert when this trade opportunity occurs  |
 | ALERT_PEAK_REVERSAL_SELL `[false]`  | Whether to send an email alert when this trade opportunity occurs  |
 | ALERT_INTERVAL_BARS `[3]`           | Number of bars to skip before we can send another alert for this symbol and timeframe  |
+| EMAIL_ALERT `[false]`               | Whether to send alerts via email. Configure the email tab under options for email alerts to work   |
+| TELEGRAM_ALERT `[false]`            | Whether to send alerts via telegram. Set up a telegram bot and group for this to work  |
+| TELEGRAM_HOST `[https://api.telegram.org]` | Telegram server. Default should be fine unless they decide to change their servers. Required if using telegram  |
+| TELEGRAM_BOT_TOKEN `[""]`           | Unique token used by your bot to send messages. Required if using telegram  |
+| TELEGRAM_CHAT_ID `[""]`             | ID identifying your chat group for messaging. Required if using telegram |
 | **"Monitoring"**                    |   |
 | HEARTBEAT_URL `[""]`                | Url to send heartbeat to  |
 | HEARTBEAT_INTERVAL_MINUTES `[5]`    | How often to send the heartbeat  |

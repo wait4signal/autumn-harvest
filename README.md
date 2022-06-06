@@ -57,8 +57,23 @@ Note that your alert interval needs to be longer than the heartbeat interval e.g
 **Configure the healthchecks server URL in expert advivsor tab under options for this to work*
 
 ### **eMail Alerts** ###
-The EA can also send out email alerts when trade opportunities are detected as per the configured strategies.   
+The EA can send out email alerts when trade opportunities are detected as per the configured strategies.   
 **Configure the email tab under options for this to work*
+
+### **Telegram Alerts** ###
+The EA can also send out telegram alerts when trade opportunities are detected.   
+To get this working you need to set the `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` settings.   
+To get your bot token you need to register a bot for interacting with the telegram api.   
+You do this by finding the `BotFather` contact in telegram and send it the `/newbot` message.   
+Then just follow prompts until you get issued a token which looks as follows:   
+`110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw`
+
+Next step is to get a telegram chat id which is basically a group id used to link your bot and your telegram account that will receive notifications. This means the bot and your account will both join this group having the given chat id.   
+To get the chat id, create a new group with a suitable name such as 'MyEAAlerts'. Ensure your bot and account are members of this group.   
+The group chat id can be found by opening the telegram web client on https://web.telegram.org    
+Once logged in, click on the group. The chat id will be in the address bar just after the # sign e.g   
+`https://web.telegram.org/z/#-784775293`   
+Note: the - character is part of the id i.e chat id is `-784775293`
 
 ## **Terminal global variables**
 The following global variables can be set at terminal level to control certain program behaviour:
