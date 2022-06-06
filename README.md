@@ -5,7 +5,7 @@
 - Open buy and sell positions and set applicable amounts for each
 - Smart stop-loss and trailing stops levels
 - EA can be set to only maintain own deals or any open deal
-- eMail alerts on buy/sell signals
+- eMail and telegram alerts on buy/sell signals
 - Monitoring using heartbeat checks
 
 ## **About**
